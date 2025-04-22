@@ -1,0 +1,34 @@
+{
+    "name": "Bug Echo - Request Tracker by DMUKA",
+    "description": "Intercepts requests, logs user interactions, and allows mocking with a debug panel.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+      "scripting",
+      "storage"
+    ],
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["bug-echo.js"],
+        "run_at": "document_start"
+      }
+    ],
+    "action": {
+      "default_title": "Bug Echo",
+      "default_icon": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+      }
+    },
+    "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  }
+  
