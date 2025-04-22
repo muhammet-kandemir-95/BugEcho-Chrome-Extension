@@ -35,8 +35,6 @@
 - Select the folder that contains:
   - `manifest.json`
   - `bug-echo.js`
-  - `background.js`
-  - `inject.js`
   - `icon.png`
 
 ### 2. Inject the Script
