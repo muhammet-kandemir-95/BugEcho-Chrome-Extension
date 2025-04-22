@@ -39,12 +39,11 @@
 
 ### 2. Inject the Script
 
-- After the page loads, **click the extension icon**
-- Click the **"INITIALIZE"** button in the floating panel
+- After the page loads, click the **"INITIALIZE"** button in the floating panel
 
 ### 3. Start Using
 
-- The floating debug panel will appear
+- The new floating debug panel with new buttons will appear
 - Start interacting with the page
 - All requests + user actions will be saved automatically
 
