@@ -73,6 +73,12 @@
         }
 
         function saveRequestLog(entry) {
+            try {
+                entry.response.body = JSON.parse(entry.response.body);
+            } catch (_) { }
+            try {
+                entry.request.payload = JSON.parse(entry.request.payload);
+            } catch (_) { }
             const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             existing.push(entry);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
@@ -91,7 +97,7 @@
                 const existing = JSON.parse(localStorage.getItem('bug-echo-request') || '[]');
                 const match = existing.find(item =>
                     item.request.url === url &&
-                    item.request.payload === payload
+                    (item.request.payload === payload || JSON.stringify(item.request.payload) === payload)
                 );
                 if (match) {
                     console.warn('[BugEcho] Mocked Response Used ✅');
@@ -148,7 +154,7 @@
                 const stored = JSON.parse(localStorage.getItem('bug-echo-request') || '[]');
                 const match = stored.find(item =>
                     item.request.url === xhr._interceptedUrl &&
-                    item.request.payload === payload
+                    (item.request.payload === payload || JSON.stringify(item.request.payload) === payload)
                 );
 
                 if (match) {
@@ -386,6 +392,7 @@ box-shadow: 0 0 5px rgba(0,0,0,0.3);
                 return acc;
             }, {});
 
+            let actionCounter = 0;
             Object.entries(grouped).forEach(([xpath, group]) => {
                 const el = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
                 const overlay = document.createElement('div');
@@ -407,8 +414,8 @@ box-shadow: 0 0 5px rgba(0,0,0,0.3);
                 });
 
                 const lines = [];
-                if (clicked) lines.push('CLICKED');
-                if (latestInput !== null) lines.push(`INPUT: ${latestInput}`);
+                if (clicked) lines.push(`${++actionCounter}. CLICKED`);
+                if (latestInput !== null) lines.push(`${++actionCounter}.INPUT: ${latestInput}`);
                 overlay.textContent = lines.join('\n');
                 document.body.appendChild(overlay);
                 setTimeout(() => overlay.remove(), 3000);
