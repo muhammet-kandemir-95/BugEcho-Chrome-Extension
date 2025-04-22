@@ -319,13 +319,12 @@ box-shadow: 0 0 5px rgba(0,0,0,0.3);
 
         document.getElementById('bug-echo-debug-panel-export-json').onclick = () => {
             const data = localStorage.getItem('bug-echo-request') || '[]';
-            const blob = new Blob([data], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
+            const blobUrl = `data:application/json;charset=utf-8,${encodeURIComponent(data)}`;
+
             const a = document.createElement('a');
-            a.href = url;
+            a.href = blobUrl;
             a.download = 'bug-echo-request.json';
             a.click();
-            URL.revokeObjectURL(url);
         };
 
         document.getElementById('bug-echo-debug-panel-import-json').onclick = () => {
